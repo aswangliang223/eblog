@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 @Slf4j
 @ControllerAdvice
-public class GlobalExcepitonHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ModelAndView handler(HttpServletRequest req, HttpServletResponse resp, Exception e) throws IOException {
