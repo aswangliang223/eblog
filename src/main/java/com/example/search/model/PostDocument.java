@@ -9,14 +9,19 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author 74650
+ */
 @Data
 @Document(indexName="post", type="post", createIndex=true)
-public class PostDocment implements Serializable {
+public class PostDocument implements Serializable {
 
     @Id
     private Long id;
 
-    // ik分词器
+    /**
+     * ik分词器
+     */
     @Field(type = FieldType.Text, searchAnalyzer="ik_smart", analyzer = "ik_max_word")
     private String title;
 

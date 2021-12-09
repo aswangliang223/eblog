@@ -5,11 +5,16 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * @author 74650
+ */
 @Data
 @AllArgsConstructor
 public class PostMqIndexMessage implements Serializable {
 
-    // 两种type
+    /**
+     * 两种type
+     */
     public final static String CREATE_OR_UPDATE = "create_update";
     public final static String REMOVE = "remove";
 

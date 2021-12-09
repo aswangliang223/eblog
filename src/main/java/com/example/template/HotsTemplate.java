@@ -3,6 +3,7 @@ package com.example.template;
 import com.example.common.templates.DirectiveHandler;
 import com.example.common.templates.TemplateDirective;
 import com.example.util.RedisUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
@@ -11,12 +12,13 @@ import java.util.*;
 
 /**
  * 本周热议
+ * @author WangLiang
  */
 @Component
+@RequiredArgsConstructor
 public class HotsTemplate extends TemplateDirective {
 
-    @Autowired
-    RedisUtil redisUtil;
+   private final  RedisUtil redisUtil;
 
     @Override
     public String getName() {
@@ -33,8 +35,8 @@ public class HotsTemplate extends TemplateDirective {
 
         for (ZSetOperations.TypedTuple typedTuple : typedTuples) {
             Map<String, Object> map = new HashMap<>();
-
-            Object value = typedTuple.getValue(); // post的id
+            // post的id
+            Object value = typedTuple.getValue();
             String postKey = "rank:post:" + value;
 
             map.put("id", value);
@@ -43,8 +45,6 @@ public class HotsTemplate extends TemplateDirective {
 
             hotPosts.add(map);
         }
-
         handler.put(RESULTS, hotPosts).render();
-
     }
 }

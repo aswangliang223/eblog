@@ -4,18 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.Post;
-import com.example.search.model.PostDocment;
+import com.example.search.model.PostDocument;
 import com.example.search.mq.PostMqIndexMessage;
 import com.example.search.repository.PostRepository;
 import com.example.service.PostService;
 import com.example.service.SearchService;
 import com.example.vo.PostVo;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,18 +22,19 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author 74650
+ */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class SearchServiceImpl implements SearchService {
 
-    @Autowired
-    PostRepository postRepository;
+    private final PostRepository postRepository;
 
-    @Autowired
-    ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    PostService postService;
+    private final PostService postService;
 
     @Override
     public IPage search(Page page, String keyword) {
@@ -42,16 +42,13 @@ public class SearchServiceImpl implements SearchService {
         Long current = page.getCurrent() - 1;
         Long size = page.getSize();
         Pageable pageable = PageRequest.of(current.intValue(), size.intValue());
-
         // 搜索es得到pageData
         MultiMatchQueryBuilder multiMatchQueryBuilder = QueryBuilders.multiMatchQuery(keyword,
                 "title", "authorName", "categoryName");
-
-        org.springframework.data.domain.Page<PostDocment> docments = postRepository.search(multiMatchQueryBuilder, pageable);
-
+        org.springframework.data.domain.Page<PostDocument> documents = postRepository.search(multiMatchQueryBuilder, pageable);
         // 结果信息 jpa的pageData转成mybatis plus的pageData
-        IPage pageData = new Page(page.getCurrent(), page.getSize(), docments.getTotalElements());
-        pageData.setRecords(docments.getContent());
+        IPage pageData = new Page(page.getCurrent(), page.getSize(), documents.getTotalElements());
+        pageData.setRecords(documents.getContent());
         return pageData;
     }
 
@@ -60,12 +57,11 @@ public class SearchServiceImpl implements SearchService {
         if(records == null || records.isEmpty()) {
             return 0;
         }
-
-        List<PostDocment> documents = new ArrayList<>();
+        List<PostDocument> documents = new ArrayList<>();
         for(PostVo vo : records) {
             // 映射转换
-            PostDocment postDocment = modelMapper.map(vo, PostDocment.class);
-            documents.add(postDocment);
+            PostDocument postDocument = modelMapper.map(vo, PostDocument.class);
+            documents.add(postDocument);
         }
         postRepository.saveAll(documents);
         return documents.size();
@@ -75,18 +71,14 @@ public class SearchServiceImpl implements SearchService {
     public void createOrUpdateIndex(PostMqIndexMessage message) {
         Long postId = message.getPostId();
         PostVo postVo = postService.selectOnePost(new QueryWrapper<Post>().eq("p.id", postId));
-
-        PostDocment postDocment = modelMapper.map(postVo, PostDocment.class);
-
-        postRepository.save(postDocment);
-
-        log.info("es 索引更新成功！ ---> {}", postDocment.toString());
+        PostDocument postDocument = modelMapper.map(postVo, PostDocument.class);
+        postRepository.save(postDocument);
+        log.info("es 索引更新成功！ ---> {}", postDocument.toString());
     }
 
     @Override
     public void removeIndex(PostMqIndexMessage message) {
         Long postId = message.getPostId();
-
         postRepository.deleteById(postId);
         log.info("es 索引删除成功！ ---> {}", message.toString());
     }

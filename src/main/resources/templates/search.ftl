@@ -1,8 +1,8 @@
-<#include "/inc/layout.ftl" />
+<#include "inc/layout.ftl" />
 
 <@layout "搜索 - ${q}">
 
-<#include "/inc/header-panel.ftl" />
+<#include "inc/header-panel.ftl" />
 
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <#include "/inc/right.ftl" />
+        <#include "inc/right.ftl" />
 
     </div>
 </div>

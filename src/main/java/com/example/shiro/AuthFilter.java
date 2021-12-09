@@ -12,6 +12,7 @@ import java.io.IOException;
 
 /**
  * shiro过滤器，判断请求是否是ajax请求
+ * @author 74650
  */
 public class AuthFilter extends UserFilter {
 

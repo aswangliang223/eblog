@@ -2,7 +2,7 @@ package com.example.im.server;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.json.JSONUtil;
-import com.example.common.lang.Consts;
+import com.example.common.lang.Constants;
 import com.example.im.handler.MsgHandler;
 import com.example.im.handler.MsgHandlerFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +15,9 @@ import org.tio.websocket.server.handler.IWsMsgHandler;
 
 import java.util.Map;
 
+/**
+ * @author 74650
+ */
 @Slf4j
 public class ImWsMsgHandler implements IWsMsgHandler {
 
@@ -28,12 +31,10 @@ public class ImWsMsgHandler implements IWsMsgHandler {
      */
     @Override
     public HttpResponse handshake(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
-
         // 绑定个人通道
         String userId = httpRequest.getParam("userId");
         log.info("{} --------------> 正在握手！", userId);
         Tio.bindUser(channelContext, userId);
-
         return httpResponse;
     }
 
@@ -48,7 +49,7 @@ public class ImWsMsgHandler implements IWsMsgHandler {
     public void onAfterHandshaked(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
 
         // 绑定群聊通道，群名称叫做：e-group-study
-        Tio.bindGroup(channelContext, Consts.IM_GROUP_NAME);
+        Tio.bindGroup(channelContext, Constants.IM_GROUP_NAME);
         log.info("{} --------------> 已绑定群！", channelContext.getId());
 
     }
@@ -76,20 +77,15 @@ public class ImWsMsgHandler implements IWsMsgHandler {
      */
     @Override
     public Object onText(WsRequest wsRequest, String text, ChannelContext channelContext) throws Exception {
-
         if(text != null && text.indexOf("ping") < 0) {
             log.info("接收到信息——————————————————>{}", text);
         }
-
         Map map = JSONUtil.toBean(text, Map.class);
-
         String type = MapUtil.getStr(map, "type");
         String data = MapUtil.getStr(map, "data");
-
         MsgHandler handler = MsgHandlerFactory.getMsgHandler(type);
         // 处理消息
         handler.handler(data, wsRequest, channelContext);
-
         return null;
     }
 

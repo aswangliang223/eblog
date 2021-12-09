@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
+/**
+ * @author WangLiang
+ */
 @Configuration
 public class KaptchaConfig {
 
@@ -21,7 +24,6 @@ public class KaptchaConfig {
         Config config = new Config(propertis);
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         defaultKaptcha.setConfig(config);
-
         return defaultKaptcha;
     }
 

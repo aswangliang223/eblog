@@ -1,14 +1,13 @@
 package com.example.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.example.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author 公众号：java思维导图

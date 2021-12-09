@@ -1,6 +1,7 @@
 package com.example.common.templates;
 
 import freemarker.template.*;
+import lombok.experimental.UtilityClass;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,17 +13,20 @@ import static org.apache.commons.lang3.StringUtils.*;
 /**
  * Freemarker 模型工具类
  *
- * Created by langhsu on 2017/11/14.
+ *
+ * @author langhsu
+ * @date 2017/11/14
  */
+@UtilityClass
 public class TemplateModelUtils {
 
-    public static final DateFormat FULL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    public static final int FULL_DATE_LENGTH = 19;
+    public  final DateFormat FULL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public  final int FULL_DATE_LENGTH = 19;
 
-    public static final DateFormat SHORT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    public static final int SHORT_DATE_LENGTH = 10;
+    public  final DateFormat SHORT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    public  final int SHORT_DATE_LENGTH = 10;
 
-    public static String converString(TemplateModel model) throws TemplateModelException {
+    public  String convertString(TemplateModel model) throws TemplateModelException {
         if (null != model) {
             if (model instanceof TemplateScalarModel) {
                 return ((TemplateScalarModel) model).getAsString();
@@ -33,7 +37,7 @@ public class TemplateModelUtils {
         return null;
     }
 
-    public static TemplateHashModel converMap(TemplateModel model) throws TemplateModelException {
+    public  TemplateHashModel convertMap(TemplateModel model) throws TemplateModelException {
         if (null != model) {
             if (model instanceof TemplateHashModelEx) {
                 return (TemplateHashModelEx) model;
@@ -44,7 +48,7 @@ public class TemplateModelUtils {
         return null;
     }
 
-    public static Integer converInteger(TemplateModel model) throws TemplateModelException {
+    public  Integer convertInteger(TemplateModel model) throws TemplateModelException {
         if (null != model) {
             if (model instanceof TemplateNumberModel) {
                 return ((TemplateNumberModel) model).getAsNumber().intValue();
@@ -61,7 +65,7 @@ public class TemplateModelUtils {
         return null;
     }
 
-    public static Short converShort(TemplateModel model) throws TemplateModelException {
+    public  Short convertShort(TemplateModel model) throws TemplateModelException {
         if (null != model) {
             if (model instanceof TemplateNumberModel) {
                 return ((TemplateNumberModel) model).getAsNumber().shortValue();
@@ -78,7 +82,7 @@ public class TemplateModelUtils {
         return null;
     }
 
-    public static Long converLong(TemplateModel model) throws TemplateModelException {
+    public  Long convertLong(TemplateModel model) throws TemplateModelException {
         if (null != model) {
             if (model instanceof TemplateNumberModel) {
                 return ((TemplateNumberModel) model).getAsNumber().longValue();
@@ -95,7 +99,7 @@ public class TemplateModelUtils {
         return null;
     }
 
-    public static Double converDouble(TemplateModel model) throws TemplateModelException {
+    public  Double convertDouble(TemplateModel model) throws TemplateModelException {
         if (null != model) {
             if (model instanceof TemplateNumberModel) {
                 return ((TemplateNumberModel) model).getAsNumber().doubleValue();
@@ -112,16 +116,16 @@ public class TemplateModelUtils {
         return null;
     }
 
-    public static String[] converStringArray(TemplateModel model) throws TemplateModelException {
+    public  String[] convertStringArray(TemplateModel model) throws TemplateModelException {
         if (model instanceof TemplateSequenceModel) {
-            TemplateSequenceModel smodel = (TemplateSequenceModel) model;
-            String[] values = new String[smodel.size()];
-            for (int i = 0; i < smodel.size(); i++) {
-                values[i] = converString(smodel.get(i));
+            TemplateSequenceModel smolder = (TemplateSequenceModel) model;
+            String[] values = new String[smolder.size()];
+            for (int i = 0; i < smolder.size(); i++) {
+                values[i] = convertString(smolder.get(i));
             }
             return values;
         } else {
-            String str = converString(model);
+            String str = convertString(model);
             if (isNotBlank(str)) {
                 return split(str,',');
             }
@@ -129,7 +133,7 @@ public class TemplateModelUtils {
         return null;
     }
 
-    public static Boolean converBoolean(TemplateModel model) throws TemplateModelException {
+    public  Boolean convertBoolean(TemplateModel model) throws TemplateModelException {
         if (null != model) {
             if (model instanceof TemplateBooleanModel) {
                 return ((TemplateBooleanModel) model).getAsBoolean();
@@ -145,7 +149,7 @@ public class TemplateModelUtils {
         return null;
     }
 
-    public static Date converDate(TemplateModel model) throws TemplateModelException {
+    public  Date convertDate(TemplateModel model) throws TemplateModelException {
         if (null != model) {
             if (model instanceof TemplateDateModel) {
                 return ((TemplateDateModel) model).getAsDate();
@@ -157,8 +161,7 @@ public class TemplateModelUtils {
         return null;
     }
 
-    public static Date parseDate(String date) {
-
+    public  Date parseDate(String date) {
         Date ret = null;
         try {
             if (FULL_DATE_LENGTH == date.length()) {

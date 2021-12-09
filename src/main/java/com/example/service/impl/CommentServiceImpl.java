@@ -8,6 +8,7 @@ import com.example.mapper.CommentMapper;
 import com.example.service.CommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.vo.CommentVo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +21,11 @@ import org.springframework.stereotype.Service;
  * @since 2019-11-17
  */
 @Service
+@RequiredArgsConstructor
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
 
-    @Autowired
-    CommentMapper commentMapper;
+
+    private final CommentMapper commentMapper;
 
     @Override
     public IPage<CommentVo> paing(Page page, Long postId, Long userId, String order) {

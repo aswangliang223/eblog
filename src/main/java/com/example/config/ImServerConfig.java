@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 
+/**
+ * @author WangLiang
+ */
 @Slf4j
 @Configuration
 public class ImServerConfig {
@@ -22,15 +25,12 @@ public class ImServerConfig {
             // 启动tio服务
             ImServerStarter serverStarter = new ImServerStarter(imPort);
             serverStarter.start();
-
             // 初始化消息处理器类别
             MsgHandlerFactory.init();
-
             return serverStarter;
         } catch (IOException e) {
             log.error("tio server 启动失败", e);
         }
-
         return null;
     }
 }

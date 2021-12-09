@@ -34,7 +34,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .or()
                 .eq("username", user.getUsername())
         );
-        if(count > 0) return Result.fail("用户名或邮箱已被占用");
+        if(count > 0) {
+            return Result.fail("用户名或邮箱已被占用");
+        }
 
         User temp = new User();
         temp.setUsername(user.getUsername());

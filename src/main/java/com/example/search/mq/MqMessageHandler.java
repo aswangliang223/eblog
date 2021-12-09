@@ -2,19 +2,23 @@ package com.example.search.mq;
 
 import com.example.config.RabbitConfig;
 import com.example.service.SearchService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author 74650
+ */
 @Slf4j
 @Component
 @RabbitListener(queues = RabbitConfig.es_queue)
+@RequiredArgsConstructor
 public class MqMessageHandler {
 
-    @Autowired
-    SearchService searchService;
+    private final SearchService searchService;
 
     @RabbitHandler
     public void handler(PostMqIndexMessage message) {

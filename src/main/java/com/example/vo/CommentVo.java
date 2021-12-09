@@ -3,6 +3,9 @@ package com.example.vo;
 import com.example.entity.Comment;
 import lombok.Data;
 
+/**
+ * @author WangLiang
+ */
 @Data
 public class CommentVo extends Comment {
 

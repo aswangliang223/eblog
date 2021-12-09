@@ -2,6 +2,9 @@ package com.example.im.vo;
 
 import lombok.Data;
 
+/**
+ * @author WangLiang
+ */
 @Data
 public class ImTo {
 

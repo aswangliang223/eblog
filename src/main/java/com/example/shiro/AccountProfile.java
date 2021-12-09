@@ -5,6 +5,9 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author 74650
+ */
 @Data
 public class AccountProfile implements Serializable {
 

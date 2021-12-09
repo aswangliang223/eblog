@@ -44,7 +44,7 @@
                         <img src="${post.authorAvatar}" alt="${post.authorName}">
                     </a>
                     <div class="fly-detail-user">
-                        <a href="/user/${post.authorId}"" class="fly-link">
+                        <a href="/user/${post.authorId}" class="fly-link">
                             <cite>${post.authorName}</cite>
                         </a>
                         <span>${timeAgo(post.created)}</span>

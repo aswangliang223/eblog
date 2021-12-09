@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.Comment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.vo.CommentVo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
  * @author 公众号：java思维导图
  * @since 2019-11-17
  */
-@Component
+@Mapper
 public interface CommentMapper extends BaseMapper<Comment> {
 
     IPage<CommentVo> selectComments(Page page, @Param(Constants.WRAPPER) QueryWrapper<Comment> wrapper);

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.UserMessage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.vo.UserMessageVo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author 公众号：java思维导图
  * @since 2019-11-17
  */
-@Component
+@Mapper
 public interface UserMessageMapper extends BaseMapper<UserMessage> {
 
     IPage<UserMessageVo> selectMessages(Page page, @Param(Constants.WRAPPER) QueryWrapper<UserMessage> wrapper);

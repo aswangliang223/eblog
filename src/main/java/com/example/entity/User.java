@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.example.entity.BaseEntity;
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author 公众号：java思维导图
@@ -32,12 +33,14 @@ public class User extends BaseEntity {
      * 昵称
      */
     @NotBlank(message = "用户名不能为空")
+    @TableField(value = "username")
     private String username;
 
     /**
      * 密码
      */
     @NotBlank(message = "密码名不能为空")
+    @TableField(value = "password")
     private String password;
 
     /**
@@ -101,6 +104,12 @@ public class User extends BaseEntity {
      * 最后的登陆时间
      */
     private Date lasted;
+
+
+    /**
+     * 账号状态：0-未激活，1-已激活，2-已失效
+     */
+    private Integer status;
 
 
 }

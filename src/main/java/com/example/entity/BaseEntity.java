@@ -6,6 +6,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author WangLiang
+ */
 @Data
 public class BaseEntity {
 

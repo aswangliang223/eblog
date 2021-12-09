@@ -4,22 +4,23 @@ import com.example.template.HotsTemplate;
 import com.example.template.PostsTemplate;
 import com.example.template.TimeAgoMethod;
 import com.jagregory.shiro.freemarker.ShiroTags;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author WangLiang
+ */
 @Configuration
+@RequiredArgsConstructor
 public class FreemarkerConfig {
 
-    @Autowired
-    private freemarker.template.Configuration configuration;
+    private final freemarker.template.Configuration configuration;
 
-    @Autowired
-    PostsTemplate postsTemplate;
+    private final PostsTemplate postsTemplate;
 
-    @Autowired
-    HotsTemplate hotsTemplate;
+    private final  HotsTemplate hotsTemplate;
 
     @PostConstruct
     public void setUp() {
@@ -28,5 +29,4 @@ public class FreemarkerConfig {
         configuration.setSharedVariable("hots", hotsTemplate);
         configuration.setSharedVariable("shiro", new ShiroTags());
     }
-
 }

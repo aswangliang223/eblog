@@ -1,9 +1,9 @@
 package com.example.im.handler.impl;
 
 import cn.hutool.json.JSONUtil;
-import com.example.common.lang.Consts;
+import com.example.common.lang.Constants;
 import com.example.im.handler.MsgHandler;
-import com.example.im.handler.filter.ExculdeMineChannelContextFilter;
+import com.example.im.handler.filter.ExcludeMineChannelContextFilter;
 import com.example.im.message.ChatImMess;
 import com.example.im.message.ChatOutMess;
 import com.example.im.vo.ImMess;
@@ -38,7 +38,7 @@ public class ChatMsgHandler implements MsgHandler {
         imMess.setUsername(mine.getUsername());
         imMess.setFromid(mine.getId());
 
-        imMess.setId(Consts.IM_GROUP_ID);
+        imMess.setId(Constants.IM_GROUP_ID);
         imMess.setTimestamp(new Date());
         imMess.setType(to.getType());
 
@@ -52,10 +52,10 @@ public class ChatMsgHandler implements MsgHandler {
 
         WsResponse wsResponse = WsResponse.fromText(result, "utf-8");
 
-        ExculdeMineChannelContextFilter filter = new ExculdeMineChannelContextFilter();
+        ExcludeMineChannelContextFilter filter = new ExcludeMineChannelContextFilter();
         filter.setCurrentContext(channelContext);
 
-        Tio.sendToGroup(channelContext.getGroupContext(), Consts.IM_GROUP_NAME, wsResponse, filter);
+        Tio.sendToGroup(channelContext.getGroupContext(), Constants.IM_GROUP_NAME, wsResponse, filter);
 
         //保存群聊信息
         ChatService chatService = (ChatService) SpringUtil.getBean("chatService");

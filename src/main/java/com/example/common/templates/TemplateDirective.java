@@ -10,10 +10,11 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Created by langhsu on 2017/11/14.
+ *
+ * @author langhsu
+ * @date 2017/11/14
  */
 public abstract class TemplateDirective implements TemplateDirectiveModel {
-    protected static String RESULT = "result";
     protected static String RESULTS = "results";
 
     @Override
@@ -27,8 +28,7 @@ public abstract class TemplateDirective implements TemplateDirectiveModel {
             throw new TemplateException(e, env);
         }
     }
-
-    abstract public String getName();
-    abstract public void execute(DirectiveHandler handler) throws Exception;
+     public abstract String getName();
+     public abstract void execute(DirectiveHandler handler) throws Exception;
 
 }

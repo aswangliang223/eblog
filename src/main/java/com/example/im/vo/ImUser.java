@@ -2,6 +2,9 @@ package com.example.im.vo;
 
 import lombok.Data;
 
+/**
+ * @author WangLiang
+ */
 @Data
 public class ImUser {
 
@@ -10,10 +13,24 @@ public class ImUser {
 
     private Long id;
     private String username;
-    private String status;     //在线状态 online：在线、hide：隐身
-    private String sign;       //我的签名
-    private String avatar;     //我的头像
-
-    private Boolean mine;      //是否我发送的消息
-    private String content;    // 消息内容
+    /**
+     * 在线状态 online：在线、hide：隐身
+     */
+    private String status;
+    /**
+     * 我的签名
+     */
+    private String sign;
+    /**
+     * 我的头像
+     */
+    private String avatar;
+    /**
+     * 是否我发送的消息
+     */
+    private Boolean mine;
+    /**
+     * 消息内容
+     */
+    private String content;
 }

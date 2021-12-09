@@ -1,6 +1,6 @@
 package com.example.config;
 
-import com.example.common.lang.Consts;
+import com.example.common.lang.Constants;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer {
 
     @Autowired
-    Consts consts;
+    Constants constants;
 
     @Bean
     ModelMapper modelMapper() {
@@ -22,7 +22,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/upload/avatar/**")
-                .addResourceLocations("file:///" + consts.getUploadDir() + "/avatar/");
+                .addResourceLocations("file:///" + constants.getUploadDir() + "/avatar/");
     }
 
 }

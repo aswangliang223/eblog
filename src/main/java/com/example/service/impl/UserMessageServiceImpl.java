@@ -7,6 +7,7 @@ import com.example.entity.UserMessage;
 import com.example.mapper.UserMessageMapper;
 import com.example.service.UserMessageService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,10 @@ import java.util.List;
  * @since 2019-11-17
  */
 @Service
+@RequiredArgsConstructor
 public class UserMessageServiceImpl extends ServiceImpl<UserMessageMapper, UserMessage> implements UserMessageService {
 
-    @Autowired
-    UserMessageMapper messageMapper;
+    private final UserMessageMapper messageMapper;
 
     @Override
     public IPage paging(Page page, QueryWrapper<UserMessage> wrapper) {
@@ -33,8 +34,9 @@ public class UserMessageServiceImpl extends ServiceImpl<UserMessageMapper, UserM
 
     @Override
     public void updateToReaded(List<Long> ids) {
-        if(ids.isEmpty()) return;
-
+        if(ids.isEmpty()) {
+            return;
+        }
         messageMapper.updateToReaded(new QueryWrapper<UserMessage>()
             .in("id", ids)
         );
